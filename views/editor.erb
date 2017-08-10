@@ -1,0 +1,93 @@
+<html>
+  <head>
+    <title>ERB Builder</title>
+    <%= erb :jquery %>
+    <style type="text/css" media="screen">
+      #editor
+      {
+        position: absolute;
+        top:    0;
+        left:   0;
+        width:  50%;
+        height: 100%;
+      }
+      #viewer
+      {
+        position: absolute;
+        top:    0;
+        left:   50%;
+        width:  50%;
+        height: 100%;
+      }
+      body
+      {
+        background-color: black;
+      }
+    </style>
+    <script>
+      var filename = '<%= @filename %>';
+      function buildErb(editor, viewer) {
+        var text = editor.getValue();
+        $.post('/build', {text: text}).done(function(data) {
+          viewer.setValue(data.text)
+          viewer.navigateFileStart();
+        });
+      }
+      function saveFile(editor) {
+        var text = editor.getValue();
+        localStorage.setItem(`file-${filename}`, LZString.compress(text));
+      }
+      function loadFile(editor) {
+        var data = localStorage.getItem(`file-${filename}`);
+        if(data && data != '') {
+          editor.setValue(LZString.decompress(data));
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="editor"></div>
+    <div id="viewer"></div>
+    <%= ref.script.ace 'ace.js' %>
+    <%= ref.script 'lz-string.min.js' %>
+    <script>
+      var viewer = ace.edit("viewer");
+      viewer.setTheme("ace/theme/monokai");
+      viewer.getSession().setMode("ace/mode/html");
+      viewer.setReadOnly(true);
+      var editor = ace.edit("editor");
+      editor.setTheme("ace/theme/monokai");
+      editor.getSession().setMode("ace/mode/html_ruby");
+      editor.focus();
+      loadFile(editor);
+      editor.commands.addCommand({
+        name: 'save',
+        bindKey: {win: 'Ctrl-S', mac: 'Command-S'},
+        exec: function(editor) {
+          saveFile(editor)
+        },
+        readOnly: false
+      });
+      editor.commands.addCommand({
+        name: 'load',
+        bindKey: {win: 'Ctrl-R', mac: 'Command-R'},
+        exec: function(editor) {
+          loadFile(editor)
+        },
+        readOnly: false
+      });
+      editor.commands.addCommand({
+        name: 'build',
+        bindKey: {win: 'Ctrl-Shift-B', mac: 'Command-Shift-B'},
+        exec: function(editor) { buildErb(editor, viewer); },
+        readOnly: false
+      });
+      editor.commands.addCommand({
+        name: 'build2',
+        bindKey: {win: 'Ctrl-Enter', mac: 'Command-Enter'},
+        exec: function(editor) { buildErb(editor, viewer); },
+        readOnly: false
+      });
+    </script>
+  </body>
+</html>

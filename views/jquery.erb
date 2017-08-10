@@ -1,0 +1,9 @@
+<%
+   themes = [:'black-tie', :blitzer, :cupertino, :'dark-hive', :'dot-luv', :eggplant, :'excite-bike', :flick, :'hot-sneaks', :humanity, :'le-frog',
+             :'mint-choc', :overcast, :'pepper-grinder', :redmond, :smoothness, :'south-street', :start, :sunny, :'swanky-purse', :trontastic, :'ui-darkness',
+             :'ui-lightness', :vader]
+   @theme_name = :'ui-darkness' if @theme_name.nil? || !themes.include?(@theme_name)
+%>
+<%= ref.style.jq "#{@theme_name}/jquery-ui.min.css" %>
+<%= ref.script.jq 'jquery-3.2.1.min.js' %>
+<%= ref.script.jq 'jquery-ui-1.12.1.min.js' %>
