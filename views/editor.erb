@@ -41,6 +41,7 @@
         var data = localStorage.getItem(`file-${filename}`);
         if(data && data != '') {
           editor.setValue(LZString.decompress(data));
+          editor.navigateFileStart();
         }
       }
     </script>
@@ -60,6 +61,7 @@
       editor.getSession().setMode("ace/mode/html_ruby");
       editor.focus();
       loadFile(editor);
+      buildErb(editor, viewer)
       editor.commands.addCommand({
         name: 'save',
         bindKey: {win: 'Ctrl-S', mac: 'Command-S'},
