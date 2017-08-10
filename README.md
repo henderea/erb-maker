@@ -1,4 +1,4 @@
-#erb-maker
+# erb-maker
 
 A simple Sinatra webapp that lets you generate HTML using ERB.
 
@@ -6,7 +6,7 @@ Uses [Ace](https://ace.c9.io) for the code editor.  Visit `/file-name` on the se
 
 Editing is done in the left side pane, and the result is in the right side pane.  You have to "build" in order to update the right side pane; see **Keyboard Shortcuts** for more on that.
 
-##Keyboard Shortcuts
+## Keyboard Shortcuts
 
 **CMD/CTRL + S** - save to local storage
 **CMD/CTRL + R** - load from local storage
