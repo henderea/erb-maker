@@ -63,6 +63,10 @@ post '/build' do
 end
 
 get '/:filename' do
-  @filename = :filename
+  @filename = params[:filename]
   erb :editor
+end
+
+get '/' do
+  erb :home
 end

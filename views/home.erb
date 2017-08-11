@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <title>ERB Builder</title>
+    <%= erb :jquery %>
+    <style>
+      #inputdiv {
+        display: inline-block;
+        padding: 10px;
+        border: 1px solid black;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+      }
+      #filename {
+        font-size: 20px;
+      }
+    </style>
+    <script>
+      $(function() {
+        var files = $('#files');
+        for(var i = 0; i < localStorage.length; i++) {
+          var key = localStorage.key(i);
+          if(key.startsWith('file-')) {
+            var fname = key.substring(5)
+            var node = $('<li>');
+            node.html(`<a href="/${encodeURIComponent(fname)}" style="color: blue;">${fname}</a>`);
+            files.append(node);
+          }
+        }
+        var div = $('#inputdiv');
+        div.css('margin-left', `-${div.width()/2}px`);
+        div.css('margin-top', `-${div.height()/2}px`);
+        $('#filename').keydown(function(e) {
+          if(e.which == 13) {
+            var fn = $('#filename').val();
+            location.href = `/${encodeURIComponent(fn)}`;
+          }
+        });
+      })
+    </script>
+  </head>
+  <body>
+    <div id="inputdiv">
+      <input type="text" id="filename" placeholder="Filename" />
+      <ul id="files"></ul>
+    </div>
+  </body>
+</html>
