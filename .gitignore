@@ -2,3 +2,5 @@
 /RubyWebsite.iml
 
 /lib/sudoku copy.rb
+*.sublime-workspace
+
