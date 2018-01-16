@@ -2,7 +2,7 @@
 
 require 'rubygems'
 require 'sinatra'
-require 'erb'
+require 'action_view'
 require 'json'
 
 helpers do
@@ -54,10 +54,15 @@ helpers do
   end
 end
 
+ActionView::Template::Handlers::ERB.escape_whitelist = ['text/plain', 'text/html', 'text/erb', nil]
+VIEW = ActionView::Base.new
+
+handler = ActionView::Template.handler_for_extension("erb")
+puts ActionView::Template.new('', "inline template", handler, locals: []).type.inspect
+
 post '/build' do
   data = params[:text]
-  renderer = ERB.new(data)
-  result = renderer.result(nil)
+  result = VIEW.render(inline: data)
   content_type :json
   { text: result }.to_json
 end
