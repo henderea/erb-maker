@@ -57,9 +57,6 @@ end
 ActionView::Template::Handlers::ERB.escape_whitelist = ['text/plain', 'text/html', 'text/erb', nil]
 VIEW = ActionView::Base.new
 
-handler = ActionView::Template.handler_for_extension("erb")
-puts ActionView::Template.new('', "inline template", handler, locals: []).type.inspect
-
 post '/build' do
   data = params[:text]
   result = VIEW.render(inline: data)
