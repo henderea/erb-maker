@@ -46,7 +46,7 @@
           }
         });
         $('#export_button').click(function(e) {
-          $(`<a download="erb-maker.json" href="data:text/json;charset=utf-8,${JSON.stringify(data)}"></a>`)[0].click();
+          $(`<a download="erb-maker.json" href="${encodeURI(`data:text/json;charset=utf-8,${JSON.stringify(data)}`)}"></a>`)[0].click();
         });
         var reader = new FileReader();
         reader.onload = function(e) {
