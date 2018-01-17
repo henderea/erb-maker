@@ -14,14 +14,23 @@
       #filename {
         font-size: 20px;
       }
+      #managediv {
+        text-align: right;
+      }
+      #export_button {
+        margin-right: -4px;
+      }
     </style>
+    <%= ref.script 'lz-string.min.js' %>
     <script>
+      var data = {};
       $(function() {
         var files = $('#files');
         for(var i = 0; i < localStorage.length; i++) {
           var key = localStorage.key(i);
           if(key.startsWith('file-')) {
             var fname = key.substring(5)
+            data[fname] = LZString.compressToBase64(LZString.decompress(localStorage.getItem(key)));
             var node = $('<li>');
             node.html(`<a href="/${encodeURIComponent(fname)}" style="color: blue;">${fname}</a>`);
             files.append(node);
@@ -36,13 +45,34 @@
             location.href = `/${encodeURIComponent(fn)}`;
           }
         });
-      })
+        $('#export_button').click(function(e) {
+          $(`<a download="erb-maker.json" href="data:text/json;charset=utf-8,${JSON.stringify(data)}"></a>`)[0].click();
+        });
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          var loadedData = JSON.parse(e.target.result);
+          $.each(loadedData, function(key, value) {
+            localStorage.setItem(`file-${key}`, LZString.compress(LZString.decompressFromBase64(value)));
+          });
+          window.location.reload();
+        }
+        $('#import_button').click(function(e) {
+          var importField = document.querySelector('#import_field');
+          var file = importField.files[0];
+          reader.readAsText(file);
+        })
+      });
     </script>
   </head>
   <body>
     <div id="inputdiv">
       <input type="text" id="filename" placeholder="Filename" />
       <ul id="files"></ul>
+      <div id="managediv">
+        <button type="button" id="export_button">Export</button>
+        <br>
+        <input type="file" id="import_field"/><button type="button" id="import_button">Import</button>
+      </div>
     </div>
   </body>
 </html>
