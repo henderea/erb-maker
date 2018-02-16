@@ -1,0 +1,14 @@
+{
+  "projup": {
+    "command": [
+      "erbmstop",
+      "gpull",
+      "bi",
+      "erbmstart"
+    ],
+    "sudo": null,
+    "args": null,
+    "vars": null,
+    "interactive": null
+  }
+}
