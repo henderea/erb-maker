@@ -18,7 +18,7 @@ GEM
     daemons (1.2.6)
     erubi (1.7.1)
     eventmachine (1.2.7)
-    i18n (1.1.0)
+    i18n (1.1.1)
       concurrent-ruby (~> 1.0)
     loofah (2.2.2)
       crass (~> 1.0.2)
