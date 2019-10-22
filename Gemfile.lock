@@ -21,7 +21,7 @@ GEM
     eventmachine (1.2.7)
     i18n (1.7.0)
       concurrent-ruby (~> 1.0)
-    loofah (2.3.0)
+    loofah (2.3.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mini_portile2 (2.4.0)
