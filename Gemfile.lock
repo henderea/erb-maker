@@ -21,7 +21,7 @@ GEM
     eventmachine (1.2.7)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
-    loofah (2.7.0)
+    loofah (2.8.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mini_portile2 (2.4.0)
@@ -52,7 +52,7 @@ GEM
     tilt (2.0.10)
     tzinfo (1.2.8)
       thread_safe (~> 0.1)
-    zeitwerk (2.4.1)
+    zeitwerk (2.4.2)
 
 PLATFORMS
   ruby
